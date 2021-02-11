@@ -11,4 +11,5 @@ Diffrent rolls with diffrent promisiones:
 
 ---
 To start up the servers and clients
-    ./Server_client_setup.sh
+
+    '$ ./Server_client_setup.sh'
