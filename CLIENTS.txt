@@ -1,0 +1,17 @@
+Type; 		Username; 	UID; 	GUI; 		Password
+Patient; 	Evelina; 	P01; 	P_WARD01; 	Evelina123
+Patient; 	Johannes; 	P02; 	P_WARD01; 	Johannes123
+Patient; 	Joel; 		P03; 	P_WARD02; 	Joel123
+Doctor; 	Frans; 		D01; 	DN_WARD01;	Frans123
+Doctor; 	Emma; 		D02; 	DN_WARD02; 	K88kszV^Ter"*V&*
+Nurse; 		Oscar; 		N01; 	DN_WARD01; 	Oscar123
+Nurse; 		Olivia; 	N02; 	DN_WARD02; 	Olivia123
+Government;	GA;		G01;	GA; 		admin
+
+Type only used by us to remember who is who.
+Username used while logging into keystore.
+UID used for access.
+GUI used for access, e.g. clients in DN_WARD01 are doctor/nurse in ward 01 
+and gets access accordingly. 
+Password is password for clients keystore.
+
