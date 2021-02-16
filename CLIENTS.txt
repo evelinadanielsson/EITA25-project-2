@@ -6,12 +6,20 @@ Doctor; 	Frans; 		D01; 	DN_WARD01;	Frans123
 Doctor; 	Emma; 		D02; 	DN_WARD02; 	K88kszV^Ter"*V&*
 Nurse; 		Oscar; 		N01; 	DN_WARD01; 	Oscar123
 Nurse; 		Olivia; 	N02; 	DN_WARD02; 	Olivia123
-Government;	GA;		G01;	GA; 		admin
+Government;	GA;		G01;	; 		admin
 
 Type only used by us to remember who is who.
 Username used while logging into keystore.
 UID used for access.
-GUI used for access, e.g. clients in DN_WARD01 are doctor/nurse in ward 01 
+GUI used for group access, e.g. clients in DN_WARD01 are doctors/nurses in ward 01 
 and gets access accordingly. 
 Password is password for clients keystore.
 
+--------- ACL Example Record for patient P01 ----------------------------------------------
+Owner: GA   						% or doctor who created maybe?
+ACE[0]: Allow UID 	G01 		Read, delete 	% government
+ACE[1]: Allow UID	D01 		Read, write 	% main doctor
+ACE[2]: Allow UID	P01 		Read		% patient
+ACE[3]: Allow UID	N01 		Read, write	% nurse
+ACE[4]: Allow GUI	DN_WARD01	Read		% nurses + doctors in pation ward
+-------------------------------------------------------------------------------------------
