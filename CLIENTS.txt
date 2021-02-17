@@ -1,12 +1,12 @@
-Type; 		Username; 	UID; 	GUI; 		Email:                Password
-Patient; 	Evelina; 	P01; 	P_WARD01; 	fake@hmail.com        Evelina123
-Patient; 	Johannes; 	P02; 	P_WARD01; 	fake@hmail.com        Johannes123
-Patient; 	Joel; 		P03; 	P_WARD02; 	fake@hmail.com        Joel123
-Doctor; 	Frans; 		D01; 	DN_WARD01;	fake@hmail.com        Frans123
-Doctor; 	Emma; 		D02; 	DN_WARD02; 	fake@hmail.com        K88kszV^Ter"*V&*
-Nurse; 		Oscar; 		N01; 	DN_WARD01; 	fake@hmail.com        Oscar123
-Nurse; 		Olivia; 	N02; 	DN_WARD02; 	fake@hmail.com        Olivia123
-Government;	GA;		G01;	GA; 		fake@hmail.com        admin
+Type; 		Username/CN; 	UID; 	GUI; 		Password:
+Patient; 	Evelina; 	P01; 	P_WARD01; 	evelina123
+Patient; 	Johannes; 	P02; 	P_WARD01; 	johannes123
+Patient; 	Joel; 		P03; 	P_WARD02; 	joel123
+Doctor; 	Frans; 		D01; 	DN_WARD01;	frans123
+Doctor; 	Emma; 		D02; 	DN_WARD02; 	K88kszV^Ter*V&*
+Nurse; 		Oscar; 		N01; 	DN_WARD01; 	oscar123
+Nurse; 		Olivia; 	N02; 	DN_WARD02; 	olivia123
+Government;	GA;		G01;	GA; 		admin
 
 Type only used by us to remember who is who.
 Username used while logging into keystore.

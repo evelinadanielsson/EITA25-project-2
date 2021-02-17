@@ -3,14 +3,13 @@
 mkdir $1
 cd $1
 
-password=evelina123
+password=olivia123
 country=SE
 state=Skane
 locality=Lund
-organization=Polisen
-organizationalunit=Polisen
-commonname=Evelina
-password=evelina123
+organization=None
+organizationalunit=None
+commonname=Olivia
 email=fake@email.com
 
 
