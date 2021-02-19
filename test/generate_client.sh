@@ -24,7 +24,7 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -pass
 
 # keytool -certreq -alias key_pair_id_$commonname -file csr -keystore clientkeystore -storepass $password -noprompt
 
-openssl x509 -req -in csr -CA cert.pem -CAkey key.pem -CAcreateserial -out certificate_chain.pem -passin pass:$password
+# openssl x509 -req -in csr -CA cert.pem -CAkey key.pem -CAcreateserial -out certificate_chain.pem -passin pass:$password
 
 # keytool -importcert -alias CA_$commonname -file cert.pem -keystore clientkeystore -storepass $password -noprompt
 
