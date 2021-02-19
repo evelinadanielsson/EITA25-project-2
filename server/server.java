@@ -4,14 +4,21 @@ import java.security.KeyStore;
 import javax.net.*;
 import javax.net.ssl.*;
 import javax.security.cert.X509Certificate;
+import java.util.logging.*;
 
 public class server implements Runnable {
     private ServerSocket serverSocket = null;
     private static int numConnectedClients = 0;
 
+    // maybe change name from MyLog?
+    private Logger logger = Logger.getLogger("MyLog");  
+    FileHandler fh;  
+
     public server(ServerSocket ss) throws IOException {
         serverSocket = ss;
         newListener();
+        setUpLog();
+        logger.info("Connection up.");
     }
 
     public void run() {
@@ -104,4 +111,24 @@ public class server implements Runnable {
         }
         return null;
     }
+
+    private void setUpLog() {
+        try {  
+            
+            // Remove all handlers so that we can add desired ones later (no print to terminal)
+            logger.setUseParentHandlers(false);
+            // This block configure the logger with handler and formatter  
+            fh = new FileHandler("TestLogger.txt", true);  
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();  
+            fh.setFormatter(formatter);  
+
+            // the following statement is used to log any messages  
+            logger.info("Log created.");  
+
+        } catch (Exception e) {  
+            e.printStackTrace();  
+        }
+    }
+
 }
