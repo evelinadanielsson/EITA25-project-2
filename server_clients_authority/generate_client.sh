@@ -15,9 +15,9 @@ email=fake@email.com
 
 
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -passout pass:$password -passin pass:$password \
-        -subj "/C=$country/ST=$state/L=$locality/O=$organization/OU=$organizationalunit/CN=$commonname/emailAddress=$email" 
+        -subj "CN=CA" 
 
-# keytool -import -file cert.pem -alias CA_$commonname -keystore clienttruststore -storepass $password -noprompt
+#  keytool -import -file /authority/cert.pem -alias CA_$commonname -keystore clienttruststore -storepass $password -noprompt
 
 # keytool -genkey -alias key_pair_id_$commonname -keyalg RSA -validity 365 -keystore clientkeystore -storetype JKS -storepass $password -keypass $password \
 #         -dname "CN=$commonname, OU=$organizationalunit, O=$organization, C=$country, ST=$state, L=$locality"
