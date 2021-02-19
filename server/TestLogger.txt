@@ -1,0 +1,12 @@
+Feb 19, 2021 8:29:18 AM server setUpLog
+INFO: Log created.
+Feb 19, 2021 8:29:59 AM server setUpLog
+INFO: Log created.
+Feb 19, 2021 8:32:14 AM server setUpLog
+INFO: Log created.
+Feb 19, 2021 8:33:39 AM server setUpLog
+INFO: Log created.
+Feb 19, 2021 8:33:46 AM server setUpLog
+INFO: Log created.
+Feb 19, 2021 8:33:46 AM server <init>
+INFO: Connection up.

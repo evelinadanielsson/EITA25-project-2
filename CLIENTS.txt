@@ -1,12 +1,12 @@
-Type; 		Username/CN; 	UID; 	GUI; 		Password:
-Patient; 	Evelina; 	P01; 	P_WARD01; 	evelina123
-Patient; 	Johannes; 	P02; 	P_WARD01; 	johannes123
-Patient; 	Joel; 		P03; 	P_WARD02; 	joel123
-Doctor; 	Frans; 		D01; 	DN_WARD01;	frans123
-Doctor; 	Emma; 		D02; 	DN_WARD02; 	K88kszV^Ter*V&*
-Nurse; 		Oscar; 		N01; 	DN_WARD01; 	oscar123
-Nurse; 		Olivia; 	N02; 	DN_WARD02; 	olivia123
-Government;	GA;		G01;	GA; 		admin
+Type; 		Username; 	UID; 	GUI; 		Password	Journal contents
+Patient; 	Evelina; 	P01; 	P_WARD01; 	Evelina123	Broken leg
+Patient; 	Johannes; 	P02; 	P_WARD01; 	Johannes123	Broken arm
+Patient; 	Joel; 		P03; 	P_WARD02; 	Joel123		Broken foot
+Doctor; 	Frans; 		D01; 	DN_WARD01;	Frans123
+Doctor; 	Emma; 		D02; 	DN_WARD02; 	K88kszV^Ter"*V&*
+Nurse; 		Oscar; 		N01; 	DN_WARD01; 	Oscar123
+Nurse; 		Olivia; 	N02; 	DN_WARD02; 	Olivia123
+Government;	GA;		G01;	; 		admin
 
 Type only used by us to remember who is who.
 Username used while logging into keystore.
@@ -15,11 +15,29 @@ GUI used for group access, e.g. clients in DN_WARD01 are doctors/nurses in ward 
 and gets access accordingly. 
 Password is password for clients keystore.
 
---------- ACL Example Record for patient P01 ----------------------------------------------
+--------- ACL for patient P01 ----------------------------------------------
 Owner: GA   						% or doctor who created maybe?
 ACE[0]: Allow UID 	G01 		Read, delete 	% government
 ACE[1]: Allow UID	D01 		Read, write 	% main doctor
 ACE[2]: Allow UID	P01 		Read		% patient
 ACE[3]: Allow UID	N01 		Read, write	% nurse
 ACE[4]: Allow GUI	DN_WARD01	Read		% nurses + doctors in pation ward
+-------------------------------------------------------------------------------------------
+
+--------- ACL for patient P02 -------------------------------------------------------------
+Owner: GA   						% or doctor who created maybe?
+ACE[0]: Allow UID 	G01 		Read, delete 	% government
+ACE[1]: Allow UID	D01 		Read, write 	% main doctor
+ACE[2]: Allow UID	P02 		Read		% patient
+ACE[3]: Allow UID	N02 		Read, write	% nurse
+ACE[4]: Allow GUI	DN_WARD01	Read		% nurses + doctors in pation ward
+-------------------------------------------------------------------------------------------
+
+--------- ACL for patient P03 -------------------------------------------------------------
+Owner: GA   						% or doctor who created maybe?
+ACE[0]: Allow UID 	G01 		Read, delete 	% government
+ACE[1]: Allow UID	D02 		Read, write 	% main doctor
+ACE[2]: Allow UID	P03 		Read		% patient
+ACE[3]: Allow UID	N02 		Read, write	% nurse
+ACE[4]: Allow GUI	DN_WARD02	Read		% nurses + doctors in pation ward
 -------------------------------------------------------------------------------------------
