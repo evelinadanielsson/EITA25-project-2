@@ -1,0 +1,36 @@
+Feb 19, 2021 10:07:05 AM server setUpLog
+INFO: Log created.
+Feb 19, 2021 10:07:05 AM server <init>
+INFO: Connection up.
+Feb 19, 2021 10:26:52 AM server setUpLog
+INFO: Log created.
+Feb 19, 2021 10:26:52 AM server <init>
+INFO: Connection up.
+Feb 19, 2021 1:31:40 PM server setUpLog
+INFO: Log created.
+Feb 19, 2021 1:31:40 PM server <init>
+INFO: Connection up.
+Feb 19, 2021 1:50:41 PM server setUpLog
+INFO: Log created.
+Feb 19, 2021 1:50:41 PM server <init>
+INFO: Connection up.
+Feb 19, 2021 1:59:10 PM server setUpLog
+INFO: Log created.
+Feb 19, 2021 1:59:10 PM server <init>
+INFO: Connection up.
+Feb 19, 2021 2:00:13 PM server setUpLog
+INFO: Log created.
+Feb 19, 2021 2:00:13 PM server <init>
+INFO: Connection up.
+Feb 19, 2021 2:00:42 PM server setUpLog
+INFO: Log created.
+Feb 19, 2021 2:00:42 PM server <init>
+INFO: Connection up.
+Feb 19, 2021 2:16:52 PM server setUpLog
+INFO: Log created.
+Feb 19, 2021 2:16:52 PM server <init>
+INFO: Connection up.
+Feb 19, 2021 2:41:14 PM server setUpLog
+INFO: Log created.
+Feb 19, 2021 2:41:14 PM server <init>
+INFO: Connection up.
