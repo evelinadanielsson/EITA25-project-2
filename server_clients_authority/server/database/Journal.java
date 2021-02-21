@@ -22,7 +22,7 @@ public class Journal {
 			return contents;
 		}else {
 			ArrayList<String> error = new ArrayList<String>();
-			error.add("DENIED"); // How will server handle this? Could throw exception instead
+			error.add("Access denied"); // How will server handle this? Could throw exception instead
 			return error;
 		}
 	}
