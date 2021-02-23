@@ -78,6 +78,7 @@ public class server2 implements Runnable {
 					System.out.println(res); // = access denied
 
    			    */
+                clientMsg.replaceAll("\r", "");
 			    String rev = new StringBuilder(clientMsg).toString();
                 System.out.println("received '" + clientMsg + "' from client");
                 List<String> cmd = Arrays.asList(clientMsg.split(" "));
