@@ -73,7 +73,11 @@ public class client {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String msg;
-			for (;;) {
+
+            String firstMsg = in.readLine();
+            System.out.println(firstMsg);
+
+			while (true) {
                 System.out.print(">");
                 msg = read.readLine();
                 if (msg.equalsIgnoreCase("quit")) {
@@ -83,9 +87,15 @@ public class client {
                 out.println(msg);
                 out.flush();
                 System.out.println("done");
-
-                System.out.println("received '" + in.readLine() + "' from server\n");
+                StringBuilder clientMsg = new StringBuilder();
+                System.out.println("received from server\n");
+                char ch;
+                while ((ch = (char)in.read()) != '\r') {
+                    clientMsg.append(ch);
+                }
+                System.out.println(clientMsg.toString());
             }
+    
             in.close();
 			out.close();
 			read.close();

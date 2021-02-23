@@ -6,12 +6,16 @@ import javax.net.*;
 import javax.net.ssl.*;
 import javax.security.cert.X509Certificate;
 import java.util.logging.*;
-import database.Database;
-import database.Person;
+import database.*;
+import java.util.Arrays;
+import java.util.List;
+
+
 
 public class server2 implements Runnable {
     private ServerSocket serverSocket = null;
     private static int numConnectedClients = 0;
+
 
     // maybe change name from MyLog?
     private Logger logger = Logger.getLogger("MyLog");
@@ -19,6 +23,7 @@ public class server2 implements Runnable {
 
     // Database, what will path be? Import from utility?
     private Database db = new Database();
+    private API api = new API(db);
 
     public server2(ServerSocket ss) throws IOException {
         serverSocket = ss;
@@ -48,10 +53,22 @@ public class server2 implements Runnable {
    		if(person == null) {
    			// Person is not in database, interrupt connection?
    			throw new IOException("Access denied");
-   		}else {
-   			// Person is in database
-   			System.out.println("Welcome "+ person.getName());
-   			/* EX how commands can be run:
+   		} else {
+            // Person is in database
+            System.out.println(numConnectedClients + " concurrent connection(s)\n");
+            PrintWriter out = null;
+            BufferedReader in = null;
+            out = new PrintWriter(socket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            // Welcome message
+            out.println("Welcome "+ person.getName() + "\n");
+            out.flush();
+
+            // Start reading comands
+            String clientMsg = null;
+            while ((clientMsg = in.readLine()) != null) {
+                /* EX how commands can be run:
    			  	// cmd "I want to read journal for patient "P02"
 					String res = db.readJournal(person, "P02");
 					System.out.println(res); // = "Broken arm"
@@ -60,21 +77,14 @@ public class server2 implements Runnable {
 					res = db.writeJournal(person, "P02", "better now");
 					System.out.println(res); // = access denied
 
-   			 */
-   		}
-            System.out.println(numConnectedClients + " concurrent connection(s)\n");
-
-            PrintWriter out = null;
-            BufferedReader in = null;
-            out = new PrintWriter(socket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-            String clientMsg = null;
-            while ((clientMsg = in.readLine()) != null) {
-			    String rev = new StringBuilder(clientMsg).reverse().toString();
+   			    */
+			    String rev = new StringBuilder(clientMsg).toString();
                 System.out.println("received '" + clientMsg + "' from client");
-                System.out.print("sending '" + rev + "' to client...");
-				out.println(rev);
+                List<String> cmd = Arrays.asList(clientMsg.split(" "));
+                String result = api.executeCmd(cmd, person);
+                //String result = cmd.get(0);
+                System.out.print("sending '" + result + "' to client...");
+				out.println(result + "\r");
 				out.flush();
                 System.out.println("done\n");
 			}
@@ -84,6 +94,7 @@ public class server2 implements Runnable {
     	    numConnectedClients--;
             System.out.println("client disconnected");
             System.out.println(numConnectedClients + " concurrent connection(s)\n");
+   		}
 		} catch (IOException e) {
             System.out.println("Client died: " + e.getMessage());
             e.printStackTrace();

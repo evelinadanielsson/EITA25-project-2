@@ -29,19 +29,19 @@ public class Database {
 			Journal journal = journals.get(i);
 			if(journal.getPatientID().equals(patientID)) {
 				ArrayList<String> list = journal.read(p.getUID(), p.getGID());
-				if(list.get(0).equals("Access denied")) {
-					return "Access to read journal " + patientID +" denied";
+				if(list.get(0).equals("Access denied\n")) {
+					return "Access to read journal " + patientID +" denied\n";
 				}
-				String ret = "";
+				String ret = "\n";
 				for (String l : list) {
-					ret = ret+"\n"+l;
+					ret = ret + l + "\n";
 				}
 				// Return Journals as a string
 				return ret;
 
 			}
 		}
-		return "No Journal found for patient ID" + patientID;
+		return "No Journal found for patient ID" + patientID + "\n";
 	}
 	
 	// p is person trying to run commands, patientID is the ID in the journal
@@ -51,14 +51,14 @@ public class Database {
 			if(journal.getPatientID().equals(patientID)) {
 				boolean access = journal.write(p.getUID(), p.getGID(), newEntry);
 				if (access) {
-					return "Entry added to journal";
+					return "Entry added to journal\n";
 				}else {
-					return "Access to write to journal " + patientID +" denied";
+					return "Access to write to journal " + patientID +" denied\n";
 				}
 
 			}
 		}
-		return "No Journal found for patient ID" + patientID;
+		return "No Journal found for patient ID \n" + patientID;
 	}
 	
 	// p is person trying to run commands, patientID is the ID in the journal
@@ -68,13 +68,13 @@ public class Database {
 			if(journal.getPatientID().equals(patientID)) {
 				boolean access = journal.execute(p.getUID(), p.getGID());
 				if (access) {
-					return "Journal removed";
+					return "Journal removed \n";
 				}else {
-					return "Access to delete journal " + patientID +" denied";
+					return "Access to delete journal " + patientID +" denied\n";
 				}
 
 			}
 		}
-		return "No Journal found for patient ID" + patientID;
+		return "No Journal found for patient ID" + patientID + "\n";
 	}
 }
