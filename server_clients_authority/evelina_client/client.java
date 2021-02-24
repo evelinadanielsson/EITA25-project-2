@@ -4,6 +4,7 @@ import javax.net.ssl.*;
 import javax.security.cert.X509Certificate;
 import java.security.KeyStore;
 import java.security.cert.*;
+import java.util.Scanner;
 
 /*
  * This example shows how to set up a key manager to perform client
@@ -36,7 +37,10 @@ public class client {
         try { /* set up a key manager for client authentication */
             SSLSocketFactory factory = null;
             try {
-                char[] password = "password".toCharArray();
+                System.out.print("Certificate Passphrase: "); // First step of 2FA
+                Scanner input = new Scanner(System.in);
+                String passphrase = input.nextLine();
+                char[] password = passphrase.toCharArray();
                 KeyStore ks = KeyStore.getInstance("JKS");
                 KeyStore ts = KeyStore.getInstance("JKS");
                 KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
@@ -74,35 +78,47 @@ public class client {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String msg;
 
-            String firstMsg = in.readLine();
-            System.out.println(firstMsg);
+            //String firstMsg = in.readLine();
+            //System.out.println(firstMsg);
 
-			while (true) {
+            // Initial printout
+            StringBuilder clientMsg = new StringBuilder();
+            char ch;
+            while ((ch = (char)in.read()) != '\r') {
+                clientMsg.append(ch);
+            }
+            // read the '\r'
+            ch = (char)in.read();
+            System.out.println(clientMsg.toString());
+
+      			while (true) {
                 System.out.print(">");
                 msg = read.readLine();
                 if (msg.equalsIgnoreCase("quit")) {
-				    break;
-				}
+                   break;
+          	    }
                 System.out.print("sending '" + msg + "' to server...");
                 out.println(msg);
                 out.flush();
                 System.out.println("done");
-                StringBuilder clientMsg = new StringBuilder();
-                System.out.println("received from server\n");
-                char ch;
+                clientMsg = new StringBuilder();
+                System.out.println("received from server");
                 while ((ch = (char)in.read()) != '\r') {
                     clientMsg.append(ch);
                 }
+                // read the '\r'
+                ch = (char)in.read();
                 System.out.println(clientMsg.toString());
-            }
-    
-            in.close();
-			out.close();
-			read.close();
-            socket.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
+      }
+
+      in.close();
+  		out.close();
+  		read.close();
+      socket.close();
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
+      }
 
 }
