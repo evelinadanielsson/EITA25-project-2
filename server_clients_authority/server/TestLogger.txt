@@ -34,3 +34,7 @@ Feb 19, 2021 2:41:14 PM server setUpLog
 INFO: Log created.
 Feb 19, 2021 2:41:14 PM server <init>
 INFO: Connection up.
+Feb 21, 2021 11:11:20 AM server setUpLog
+INFO: Log created.
+Feb 21, 2021 11:11:20 AM server <init>
+INFO: Connection up.
