@@ -18,7 +18,7 @@ public class server implements Runnable {
         serverSocket = ss;
         newListener();
         setUpLog();
-        logger.info("Connection up.");
+        logger.info("Server up.");
     }
 
     public void run() {
