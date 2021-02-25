@@ -5,17 +5,21 @@ import java.security.KeyStore;
 import javax.net.*;
 import javax.net.ssl.*;
 import javax.security.cert.X509Certificate;
+import javax.swing.JPasswordField;
+
 import java.util.logging.*;
 import database.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.io.Console;
 
 
 
 public class server implements Runnable {
     private ServerSocket serverSocket = null;
     private static int numConnectedClients = 0;
+    
 
 
     // maybe change name from MyLog?
@@ -30,7 +34,7 @@ public class server implements Runnable {
         serverSocket = ss;
         newListener();
         setUpLog();
-        logger.info("Connection up.");
+        logger.info("Server started.");
     }
 
     public void run() {
@@ -42,62 +46,66 @@ public class server implements Runnable {
             String subject = cert.getSubjectDN().getName();
             String issuer = cert.getIssuerDN().getName();
             String serial = cert.getSerialNumber().toString();
-    	      numConnectedClients++;
+            numConnectedClients++;
             // System.out.println("client connected");
             // System.out.println("client name (cert subject DN field): " + subject);
             // System.out.println(cert.getIssuerDN());
             // System.out.println("the issuer is: " + issuer);
             // System.out.println("the serial is: " + serial);
 
-   	    System.out.println("Connection created");
-   	    Person person = db.getPerson(issuer, serial);
-   		if(person == null) {
-   			// Person is not in database, interrupt connection?
-   			throw new IOException("Access denied");
-   		} else {
-            // Person is in database
-            System.out.println(numConnectedClients + " concurrent connection(s)\n");
-            PrintWriter out = null;
-            BufferedReader in = null;
-            out = new PrintWriter(socket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            System.out.println("Connection created");
+            logger.info("Started connection with "+subject+" serial:"+serial);
+            Person person = db.getPerson(issuer, serial);
+            if(person == null) {
+                // Person is not in database, interrupt connection?
+                throw new IOException("Access denied");
+   		    } else {
+                // Person is in database
+                System.out.println(numConnectedClients + " concurrent connection(s)\n");
+                PrintWriter out = null;
+                BufferedReader in = null;
+                out = new PrintWriter(socket.getOutputStream(), true);
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            // Welcome message
-            out.println("Welcome "+ person.getName() + "! "+ "\n"+
-                "Available commands"+ "\n"+
-                "read "+"\t"+"'journal ID'"+ "\n"+
-                "write "+"\t"+"'journal ID' 'text'"+ "\n"+
-                "remove "+"\t"+"'journal ID'"+ "\n"+
-                "add "+"\t"+"'journal ID' 'patient ID' 'nurse ID' 'text'" + "\r");
+                // Welcome message
+                out.println("Welcome "+ person.getName() + "! "+ "\n"+
+                    "Available commands"+ "\n"+
+                    "read "+"\t"+"'journal ID'"+ "\n"+
+                    "write "+"\t"+"'journal ID' 'text'"+ "\n"+
+                    "remove "+"\t"+"'journal ID'"+ "\n"+
+                    "add "+"\t"+"'journal ID' 'patient ID' 'nurse ID' 'text'" + "\r");
 
-            out.flush();
+                out.flush();
 
-            // Start reading comands
-            String clientMsg = null;
-            while ((clientMsg = in.readLine()) != null) {
-                      /* EX how commands can be run:
-         			  	// cmd "I want to read journal for patient "P02"
-      					String res = db.readJournal(person, "P02");
-      					System.out.println(res); // = "Broken arm"
-       			    */
-              clientMsg.replaceAll("\r", "");
-		          String rev = new StringBuilder(clientMsg).toString();
-              System.out.println("received '" + clientMsg + "' from client");
-              List<String> cmd = Arrays.asList(clientMsg.split(" "));
-              String result = api.executeCmd(cmd, person);
-              //String result = cmd.get(0);
-              System.out.print("sending '" + result + "' to client...");
-      				out.println(result + "\r");
-      				out.flush();
-              System.out.println("done ");
-      			}
-			in.close();
-			out.close();
-			socket.close();
-    	    numConnectedClients--;
-            System.out.println("client disconnected");
-            System.out.println(numConnectedClients + " concurrent connection(s) ");
-   		}
+                // Start reading comands
+                String clientMsg = null;
+                while ((clientMsg = in.readLine()) != null) {
+                        /* EX how commands can be run:
+                            // cmd "I want to read journal for patient "P02"
+                            String res = db.readJournal(person, "P02");
+                            System.out.println(res); // = "Broken arm"
+                        */
+                    clientMsg.replaceAll("\r", "");
+                    String rev = new StringBuilder(clientMsg).toString();
+                    System.out.println("received '" + clientMsg + "' from client");
+                    logger.info("received '" + clientMsg + "' from client CN:"+subject+" id:"+serial );
+                    List<String> cmd = Arrays.asList(clientMsg.split(" "));
+                    String result = api.executeCmd(cmd, person);
+                    //String result = cmd.get(0);
+                    System.out.print("sending '" + result + "' to client...");
+                    logger.info("sending '" + result + "' to client...  CN:"+subject+" id:"+serial);
+                    out.println(result + "\r");
+                    out.flush();
+                    System.out.println("done ");
+                    }
+                in.close();
+                out.close();
+                socket.close();
+                numConnectedClients--;
+                System.out.println("client disconnected");
+                logger.info("Ended connection with "+subject+" serial:"+serial);
+                System.out.println(numConnectedClients + " concurrent connection(s) ");
+            }
 		} catch (IOException e) {
             System.out.println("Client disconnected");
             return;
@@ -135,12 +143,8 @@ public class server implements Runnable {
 				        KeyStore ts = KeyStore.getInstance("JKS");
 
                 Scanner input = new Scanner(System.in);
-                System.out.print("Certificate Passphrase: "); // First step of 2FA
-                String passphrase = input.nextLine();
-                //logger.info("user who is starting entered a password");
-                char[] password = passphrase.toCharArray();
-
-                //char[] password = "password".toCharArray();
+                Console console = System.console();                
+                char[] password = console.readPassword("Certificate Passphrase: ");
 
                 ks.load(new FileInputStream("serverkeystore"), password);  // keystore password (storepass)
                 ts.load(new FileInputStream("servertruststore"), password); // truststore password (storepass)

@@ -37,10 +37,8 @@ public class client {
         try { /* set up a key manager for client authentication */
             SSLSocketFactory factory = null;
             try {
-                System.out.print("Certificate Passphrase: "); // First step of 2FA
-                Scanner input = new Scanner(System.in);
-                String passphrase = input.nextLine();
-                char[] password = passphrase.toCharArray();
+                Console console = System.console();                
+                char[] password = console.readPassword("Certificate Passphrase: ");
                 KeyStore ks = KeyStore.getInstance("JKS");
                 KeyStore ts = KeyStore.getInstance("JKS");
                 KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");

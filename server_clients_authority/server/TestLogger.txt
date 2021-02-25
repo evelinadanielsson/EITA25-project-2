@@ -34,3 +34,37 @@ Feb 19, 2021 2:41:14 PM server setUpLog
 INFO: Log created.
 Feb 19, 2021 2:41:14 PM server <init>
 INFO: Connection up.
+Feb 25, 2021 12:10:56 PM server setUpLog
+INFO: Log created.
+Feb 25, 2021 12:10:56 PM server <init>
+INFO: Connection up.
+Feb 25, 2021 12:14:17 PM server run
+INFO: Started connection with CN=frans serial:233517865169099216092418102268418889084600442599
+Feb 25, 2021 12:14:33 PM server run
+INFO: received 'read P01 ' from client
+Feb 25, 2021 12:14:33 PM server run
+INFO: sending 'No Journal found for Journal ID P01' to client...
+Feb 25, 2021 12:16:53 PM server run
+INFO: Ended connection with CN=frans serial:233517865169099216092418102268418889084600442599
+Feb 25, 2021 12:31:16 PM server setUpLog
+INFO: Log created.
+Feb 25, 2021 12:31:17 PM server <init>
+INFO: Server started.
+Feb 25, 2021 12:41:41 PM server setUpLog
+INFO: Log created.
+Feb 25, 2021 12:41:41 PM server <init>
+INFO: Server started.
+Feb 25, 2021 12:41:56 PM server run
+INFO: Started connection with CN=frans serial:233517865169099216092418102268418889084600442599
+Feb 25, 2021 12:42:13 PM server run
+INFO: Ended connection with CN=frans serial:233517865169099216092418102268418889084600442599
+Feb 25, 2021 12:42:43 PM server run
+INFO: Started connection with CN=frans serial:233517865169099216092418102268418889084600442599
+Feb 25, 2021 12:42:47 PM server run
+INFO: Ended connection with CN=frans serial:233517865169099216092418102268418889084600442599
+Feb 25, 2021 1:20:41 PM server setUpLog
+INFO: Log created.
+Feb 25, 2021 1:20:41 PM server <init>
+INFO: Server started.
+Feb 25, 2021 1:21:06 PM server run
+INFO: Started connection with CN=emma serial:233517865169099216092418102268418889084600442604
